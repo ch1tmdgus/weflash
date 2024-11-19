@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeFlash - 장르별 게임</title>
+    <!-- Pretendard 폰트 CDN 로드 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css"
+    />
+    <style>
+      body {
+        font-family: "Pretendard", sans-serif;
+        /* Pretendard 폰트 적용 */
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: #d9d9d9;
+      }
+
+      /* 상단 바 스타일 */
+      header {
+        background-color: #f1f1f1;
+        color: black;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        /* nav를 중앙에 배치 */
+        align-items: center;
+        font-size: 18px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      /* 네비게이션 바 */
+      nav {
+        display: flex;
+        gap: 40px;
+        /* 메뉴 항목 간의 간격 */
+      }
+
+      nav a {
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      /* WeFlash 글자만 볼드체로 만들기 */
+      nav a:first-child {
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        background-color: #dddddd;
+        border-radius: 30px;
+      }
+
+      /* 메인 콘텐츠 */
+      .content {
+        margin-top: 80px;
+        /* 상단바 아래 여백 추가 */
+        padding: 20px;
+      }
+
+      /* 섹션 스타일 */
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      /* 장르 게임 리스트 스타일 */
+      .genre-list {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      /* 장르 게임 아이템 스타일 */
+      /* 장르 게임 아이템 스타일 */
+      .genre-item {
+        width: 80px; /* 가로 크기 */
+        height: 40px; /* 세로 크기 */
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #000;
+        border-radius: 30px;
+        flex-shrink: 0;
+        /* 크기가 줄어들지 않게 */
+        overflow: hidden; /* 아이콘 안에서 글자 넘침 방지 */
+        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+        text-overflow: ellipsis; /* 텍스트가 넘칠 경우 생략 */
+      }
+
+      /* 장르 이름 스타일 */
+      .genre-name {
+        font-size: 0.8em; /* 기본 크기 설정 */
+        line-height: 1.2; /* 텍스트 높이 맞추기 */
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      .genre-item:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 상단바 -->
+    <header>
+      <!-- 네비게이션 메뉴 -->
+      <nav>
+        <a href="index.html">WeFlash</a>
+        <a href="#">게임</a>
+        <a href="genre.html">장르</a>
+        <a href="#">Q&A</a>
+      </nav>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="content">
+      <!-- 장르별 게임 섹션 -->
+      <section id="genre-games">
+        <div class="section-title">장르별 게임</div>
+        <div class="genre-list">
+          <div class="genre-item">
+            <div class="genre-name">액션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">퍼즐</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">스포츠</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">모험</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">슈팅</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">레이싱</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">롤플레잉</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">탐험</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">생존</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">공포</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전쟁</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">퍼즐 플랫폼</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">카드 게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">타워 디펜스</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">비행 시뮬레이션</div>
+          </div>
+          <div cFlass="genre-item">
+            <div class="genre-name">음악</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">소셜</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">교육</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">가족</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">모바일</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">클래식</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">어드벤처</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">탑다운 슈터</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">3D 플랫폼</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">비주얼 노벨</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">생명 시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">스텔스</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">탐정</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">사격</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">레트로</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 카드</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">소셜 시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">디지털 보드 게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">미니게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">VR 게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">AR 게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">크로스 플랫폼</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">인디 게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">모험 RPG</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 RPG</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">액션 RPG</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">서바이벌 호러</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">디지털 카드 게임</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">스포츠 시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전투</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 전쟁</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">탐험 RPG</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">사이언스 픽션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">판타지</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">고전 RPG</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 방어</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">스포츠 액션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">모험 시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전투 시뮬레이션</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 타워 디펜스</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">소셜 RPG</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">전략 생존</div>
+          </div>
+          <div class="genre-item">
+            <div class="genre-name">모바일 RPG</div>
+
+            <div class="genre-item">
+              <div class="genre-name">전략 시뮬레이션</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">탑다운 슈터</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">3D 플랫폼</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">비주얼 노벨</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">생명 시뮬레이션</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">스텔스</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">탐정</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">사격</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">레트로</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">전략 카드</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">소셜 시뮬레이션</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">디지털 보드 게임</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">미니게임</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">VR 게임</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">AR 게임</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">크로스 플랫폼</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">인디 게임</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">모험 RPG</div>
+            </div>
+            <div class="genre-item">
+              <div class="genre-name">전략 RPG</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
