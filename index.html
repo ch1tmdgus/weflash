@@ -1,209 +1,203 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WeFlash - 플래시 게임 사이트</title>
     <!-- Pretendard 폰트 CDN 로드 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css"
+    />
     <style>
-        body {
-            font-family: 'Pretendard', sans-serif;
-            /* Pretendard 폰트 적용 */
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background: #d9d9d9;
-        }
+      body {
+        font-family: "Pretendard", sans-serif;
+        /* Pretendard 폰트 적용 */
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: #d9d9d9;
+      }
 
-        /* 상단 바 스타일 */
-        header {
-            background-color: #f1f1f1;
-            color: black;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: center;
-            /* nav를 중앙에 배치 */
-            align-items: center;
-            font-size: 18px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
+      /* 상단 바 스타일 */
+      header {
+        background-color: #f1f1f1;
+        color: black;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        /* nav를 중앙에 배치 */
+        align-items: center;
+        font-size: 18px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
 
-        /* 네비게이션 바 */
-        nav {
-            display: flex;
-            gap: 4
-            0px;
-            /* 메뉴 항목 간의 간격 */
-        }
+      /* 네비게이션 바 */
+      nav {
+        display: flex;
+        gap: 4 0px;
+        /* 메뉴 항목 간의 간격 */
+      }
 
-        nav a {
-            color: black;
-            text-decoration: none;
-            padding: 10px;
-            font-size: 16px;
-        }
+      nav a {
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+        font-size: 16px;
+      }
 
-        /* WeFlash 글자만 볼드체로 만들기 */
-        nav a:first-child {
-            font-weight: bold;
-        }
+      /* WeFlash 글자만 볼드체로 만들기 */
+      nav a:first-child {
+        font-weight: bold;
+      }
 
-        nav a:hover {
-            background-color: #dddddd;
-            border-radius: 30px;
-        }
+      nav a:hover {
+        background-color: #dddddd;
+        border-radius: 30px;
+      }
 
-        /* 메인 콘텐츠 */
-        .content {
-            margin-top: 80px;
-            /* 상단바 아래 여백 추가 */
-            padding: 20px;
-        }
+      /* 메인 콘텐츠 */
+      .content {
+        margin-top: 80px;
+        /* 상단바 아래 여백 추가 */
+        padding: 20px;
+      }
 
-        /* 섹션 스타일 */
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
+      /* 섹션 스타일 */
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
 
-        /* 인기 게임과 장르 구분선 추가 */
-        #popular-games {
-            border-bottom: 1px solid #ccc;
-            /* 인기 게임과 게임 리스트 사이에 가로줄 추가 */
-            padding-bottom: 20px;
-            /* 줄과 콘텐츠 사이 여백 추가 */
-        }
+      /* 인기 게임과 장르 구분선 추가 */
+      #popular-games {
+        border-bottom: 1px solid #ccc;
+        /* 인기 게임과 게임 리스트 사이에 가로줄 추가 */
+        padding-bottom: 20px;
+        /* 줄과 콘텐츠 사이 여백 추가 */
+      }
 
-        /* 게임 리스트 스타일 */
-        .game-list {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            /* 게임 아이템이 넘칠 경우 자동으로 줄 바꿈 */
-        }
+      /* 게임 리스트 스타일 */
+      .game-list {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        /* 게임 아이템이 넘칠 경우 자동으로 줄 바꿈 */
+      }
 
-        /* 인기 게임 아이템 스타일 */
-        .game-item {
-            width: 120px;
-            /* 원하는 너비 설정 */
-            height: 180px;
-            /* 9:16 비율로 높이 계산 */
-            background-color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border: 1px solid #000;
-            flex-shrink: 0;
-            /* 크기가 줄어들지 않게 */
-            position: relative;
-            margin-bottom: 10px;
-            /* 게임 이름과 간격을 주기 위해 추가 */
-        }
+      /* 인기 게임 아이템 스타일 */
+      .game-item {
+        width: 120px;
+        /* 원하는 너비 설정 */
+        height: 180px;
+        /* 9:16 비율로 높이 계산 */
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #000;
+        flex-shrink: 0;
+        /* 크기가 줄어들지 않게 */
+        position: relative;
+        margin-bottom: 10px;
+        /* 게임 이름과 간격을 주기 위해 추가 */
+      }
 
-        .game-item:hover {
-            background-color: #e0e0e0;
-            cursor: pointer;
-        }
+      .game-item:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+      }
 
-        /* 게임 이름 스타일 */
-        .game-name {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 5px;
-            /* 게임 아이템과 이름 사이 여백 */
-        }
+      /* 게임 이름 스타일 */
+      .game-name {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+        /* 게임 아이템과 이름 사이 여백 */
+      }
 
-        /* 장르 게임 아이템 스타일 */
-        .genre-item {
-            width: 60px;
-            /* 가로 크기 */
-            height: 30px;
-            /* 세로 크기 */
-            background-color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border: 1px solid #000;
-            font-size: 12px;
-            border-radius: 30px;
-            flex-shrink: 0;
-            /* 크기가 줄어들지 않게 */
-        }
+      /* 장르 게임 아이템 스타일 */
+      .genre-item {
+        width: 60px;
+        /* 가로 크기 */
+        height: 30px;
+        /* 세로 크기 */
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #000;
+        font-size: 12px;
+        border-radius: 30px;
+        flex-shrink: 0;
+        /* 크기가 줄어들지 않게 */
+      }
 
-        .genre-item:hover {
-            background-color: #e0e0e0;
-            cursor: pointer;
-        }
+      .genre-item:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- 상단바 -->
     <header>
-        <!-- 네비게이션 메뉴 -->
-        <nav>
-            <a href="#">WeFlash</a>
-            <a href="#">게임</a>
-            <a href="#">장르</a>
-            <a href="#">Q&A</a>
-
-
-        </nav>
+      <!-- 네비게이션 메뉴 -->
+      <nav>
+        <a href="index.html">WeFlash</a>
+        <a href="#">게임</a>
+        <a href="genre.html">장르</a>
+        <a href="#">Q&A</a>
+      </nav>
     </header>
 
     <!-- 메인 콘텐츠 -->
     <div class="content">
+      <!-- 인기 게임 섹션 -->
+      <section id="popular-games">
+        <div class="section-title">인기 게임</div>
+        <div class="game-list">
+          <div class="game-item">
+            <div class="game-name"><a href="./games/gogoonbuntu.html">고군분투</a></div>
+          </div>
+          <div class="game-item">
+            <div class="game-name">게임 2</div>
+          </div>
+          <div class="game-item">
+            <div class="game-name">게임 3</div>
+          </div>
+          <div class="game-item">
+            <div class="game-name">게임 4</div>
+          </div>
+          <div class="game-item">
+            <div class="game-name">게임 5</div>
+          </div>
+          <div class="game-item">
+            <div class="game-name">게임 6</div>
+          </div>
+        </div>
+      </section>
 
-        <!-- 인기 게임 섹션 -->
-        <section id="popular-games">
-            <div class="section-title">인기 게임</div>
-            <div class="game-list">
-                <div class="game-item">
-                    <div class="game-name">게임 1</div>
-                </div>
-                <div class="game-item">
-                    <div class="game-name">게임 2</div>
-                </div>
-                <div class="game-item">
-                    <div class="game-name">게임 3</div>
-                </div>
-                <div class="game-item">
-                    <div class="game-name">게임 4</div>
-                </div>
-                <div class="game-item">
-                    <div class="game-name">게임 5</div>
-                </div>
-                <div class="game-item">
-                    <div class="game-name">게임 6</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 장르별 게임 찾기 섹션 -->
-        <section id="genre-games">
-            <div class="section-title">장르별 게임 찾기</div>
-            <div class="game-list">
-                <div class="genre-item">액션</div>
-                <div class="genre-item">퍼즐</div>
-                <div class="genre-item">스포츠</div>
-                <div class="genre-item">모험</div>
-                <div class="genre-item">슈팅</div>
-                <div class="genre-item">레이싱</div>
-            </div>
-        </section>
-
+      <!-- 장르별 게임 찾기 섹션 -->
+      <section id="genre-games">
+        <div class="section-title">장르별 게임 찾기</div>
+        <div class="game-list">
+          <div class="genre-item">액션</div>
+          <div class="genre-item">퍼즐</div>
+          <div class="genre-item">스포츠</div>
+          <div class="genre-item">모험</div>
+          <div class="genre-item">슈팅</div>
+          <div class="genre-item">레이싱</div>
+        </div>
+      </section>
     </div>
-
-</body>
-
+  </body>
 </html>
