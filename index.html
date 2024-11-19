@@ -9,10 +9,6 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css"
     />
-
-     <link rel="icon" href="favicon.png" type="image/png" />
-  </head>
-
     <style>
       body {
         font-family: "Pretendard", sans-serif;
@@ -79,7 +75,7 @@
       }
 
       /* 인기 게임과 장르 구분선 추가 */
-      #popular-games {
+      #popular-game {
         border-bottom: 1px solid #ccc;
         /* 인기 게임과 게임 리스트 사이에 가로줄 추가 */
         padding-bottom: 20px;
@@ -96,9 +92,9 @@
 
       /* 인기 게임 아이템 스타일 */
       .game-item {
-        width: 120px;
+        width: 140px;
         /* 원하는 너비 설정 */
-        height: 180px;
+        height: 100px;
         /* 9:16 비율로 높이 계산 */
         background-color: #ffffff;
         display: flex;
@@ -114,8 +110,13 @@
       }
 
       .game-item:hover {
-        background-color: #e0e0e0;
         cursor: pointer;
+      }
+      .game-item-container {
+        display: flex;
+        flex-direction: column; /* 세로 정렬 */
+        align-items: center; /* 가운데 정렬 */
+        width: 140px; /* 컨테이너 크기 */
       }
 
       /* 게임 이름 스타일 */
@@ -123,25 +124,15 @@
         text-align: center;
         font-size: 14px;
         margin-top: 5px;
-        /* 게임 아이템과 이름 사이 여백 */
       }
 
       /* 장르 게임 아이템 스타일 */
-      .genre-item {
-        width: 60px;
-        /* 가로 크기 */
-        height: 30px;
-        /* 세로 크기 */
+      .game-item {
+        width: 140px;
+        height: 100px;
         background-color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
         border: 1px solid #000;
-        font-size: 12px;
-        border-radius: 30px;
-        flex-shrink: 0;
-        /* 크기가 줄어들지 않게 */
+        cursor: pointer;
       }
 
       .genre-item:hover {
@@ -166,32 +157,120 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <!-- 인기 게임 섹션 -->
-      <section id="popular-games">
+      <section id="popular-game">
         <div class="section-title">인기 게임</div>
         <div class="game-list">
-          <div class="game-item">
-            <div class="game-name"><a href="./game/gogoonbuntu.html">고군분투</a></div>
-          </div>
-          <div class="game-item">
-            <div class="game-name">게임 2</div>
-          </div>
-          <div class="game-item">
-            <div class="game-name">게임 3</div>
-          </div>
-          <div class="game-item">
-            <div class="game-name">게임 4</div>
-          </div>
-          <div class="game-item">
-            <div class="game-name">게임 5</div>
-          </div>
-          <div class="game-item">
-            <div class="game-name">게임 6</div>
-          </div>
+
+          <a href="./game/gogoonbuntu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/gogoonbuntu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a>
+
+          <a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고향만두</div>
+          </a>
+          <a href="./game/prison.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/prison.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">감옥탈출</div>
+          </a>
+          <a href="./game/prison.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/prison.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a><a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a><a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a><a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a><a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a><a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a><a href="./game/mandu.html" class="game-item-container">
+            <div
+              class="game-item"
+              style="
+                background-image: url('/game/gameimage/mandu.png');
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="game-name">고군분투</div>
+          </a>
         </div>
       </section>
 
       <!-- 장르별 게임 찾기 섹션 -->
-      <section id="genre-games">
+      <section id="genre-game">
         <div class="section-title">장르별 게임 찾기</div>
         <div class="game-list">
           <div class="genre-item">액션</div>
