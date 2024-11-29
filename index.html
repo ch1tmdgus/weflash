@@ -1,286 +1,271 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WeFlash - 플래시 게임 사이트</title>
-    <!-- Pretendard 폰트 CDN 로드 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css"
-    />
-    <style>
-      body {
-        font-family: "Pretendard", sans-serif;
-        /* Pretendard 폰트 적용 */
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        background: #d9d9d9;
-      }
 
-      /* 상단 바 스타일 */
-      header {
-        background-color: #f1f1f1;
-        color: black;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: center;
-        /* nav를 중앙에 배치 */
-        align-items: center;
-        font-size: 18px;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeFlash - 플래시 게임 사이트</title>
+  <!-- Pretendard 폰트 CDN 로드 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css" />
+  <style>
+    body {
+      font-family: "Pretendard", sans-serif;
+      /* Pretendard 폰트 적용 */
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: #f5f5f5;
+    }
 
-      /* 네비게이션 바 */
-      nav {
-        display: flex;
-        gap: 4 0px;
-        /* 메뉴 항목 간의 간격 */
-      }
+    /* 상단 바 스타일 */
+    header {
+      background-color: #f1f1f1;
+      color: black;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      /* nav를 중앙에 배치 */
+      align-items: center;
+      font-size: 18px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
 
-      nav a {
-        color: black;
-        text-decoration: none;
-        padding: 10px;
-        font-size: 16px;
-      }
+    /* 네비게이션 바 */
+    nav {
+      display: flex;
+      gap: 4 0px;
+      /* 메뉴 항목 간의 간격 */
+    }
 
-      /* WeFlash 글자만 볼드체로 만들기 */
-      nav a:first-child {
-        font-weight: bold;
-      }
+    nav a {
+      color: black;
+      text-decoration: none;
+      padding: 10px;
+      font-size: 16px;
+    }
 
-      nav a:hover {
-        background-color: #dddddd;
-        border-radius: 30px;
-      }
+    /* WeFlash 글자만 볼드체로 만들기 */
+    nav a:first-child {
+      font-weight: bold;
+    }
 
-      /* 메인 콘텐츠 */
-      .content {
-        margin-top: 80px;
-        /* 상단바 아래 여백 추가 */
-        padding: 20px;
-      }
+    nav a:hover {
+      background-color: #dddddd;
+      border-radius: 30px;
+    }
 
-      /* 섹션 스타일 */
-      .section-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-      }
+    /* 메인 콘텐츠 */
+    .content {
+      margin-top: 80px;
+      /* 상단바 아래 여백 추가 */
+      padding: 20px;
+    }
 
-      /* 인기 게임과 장르 구분선 추가 */
-      #popular-game {
-        border-bottom: 1px solid #ccc;
-        /* 인기 게임과 게임 리스트 사이에 가로줄 추가 */
-        padding-bottom: 20px;
-        /* 줄과 콘텐츠 사이 여백 추가 */
-      }
+    /* 섹션 스타일 */
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
 
-      /* 게임 리스트 스타일 */
-      .game-list {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        /* 게임 아이템이 넘칠 경우 자동으로 줄 바꿈 */
-      }
+    /* 인기 게임과 장르 구분선 추가 */
+    #popular-game {
+      border-bottom: 1px solid #ccc;
+      /* 인기 게임과 게임 리스트 사이에 가로줄 추가 */
+      padding-bottom: 20px;
+      /* 줄과 콘텐츠 사이 여백 추가 */
+    }
 
-      /* 인기 게임 아이템 스타일 */
-      .game-item {
-        width: 140px;
-        /* 원하는 너비 설정 */
-        height: 100px;
-        /* 9:16 비율로 높이 계산 */
-        background-color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border: 1px solid #000;
-        flex-shrink: 0;
-        /* 크기가 줄어들지 않게 */
-        position: relative;
-        margin-bottom: 10px;
-        /* 게임 이름과 간격을 주기 위해 추가 */
-      }
+    /* 게임 리스트 스타일 */
+    .game-list {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      /* 게임 아이템이 넘칠 경우 자동으로 줄 바꿈 */
+    }
 
-      .game-item:hover {
-        cursor: pointer;
-      }
-      .game-item-container {
-        display: flex;
-        flex-direction: column; /* 세로 정렬 */
-        align-items: center; /* 가운데 정렬 */
-        width: 140px; /* 컨테이너 크기 */
-      }
+    /* 인기 게임 아이템 스타일 */
+    .game-item {
+      width: 140px;
+      /* 원하는 너비 설정 */
+      height: 100px;
+      /* 9:16 비율로 높이 계산 */
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid #000;
+      flex-shrink: 0;
+      /* 크기가 줄어들지 않게 */
+      position: relative;
+      margin-bottom: 10px;
+      /* 게임 이름과 간격을 주기 위해 추가 */
+    }
 
-      /* 게임 이름 스타일 */
-      .game-name {
-        text-align: center;
-        font-size: 14px;
-        margin-top: 5px;
-      }
+    .game-item:hover {
+      cursor: pointer;
+    }
 
-      /* 장르 게임 아이템 스타일 */
-      .game-item {
-        width: 140px;
-        height: 100px;
-        background-color: #ffffff;
-        border: 1px solid #000;
-        cursor: pointer;
-      }
+    .game-item-container {
+      display: flex;
+      flex-direction: column;
+      /* 세로 정렬 */
+      align-items: center;
+      /* 가운데 정렬 */
+      width: 140px;
+      /* 컨테이너 크기 */
+    }
 
-      .genre-item:hover {
-        background-color: #e0e0e0;
-        cursor: pointer;
-      }
-    </style>
-  </head>
+    /* 게임 이름 스타일 */
+    .game-name {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 5px;
+    }
 
-  <body>
-    <!-- 상단바 -->
-    <header>
-      <!-- 네비게이션 메뉴 -->
-      <nav>
-        <a href="index.html">WeFlash</a>
-        <a href="#">게임</a>
-        <a href="genre.html">장르</a>
-        <a href="#">Q&A</a>
-      </nav>
-    </header>
+    /* 장르 게임 아이템 스타일 */
+    .game-item {
+      width: 140px;
+      height: 100px;
+      background-color: #ffffff;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
 
-    <!-- 메인 콘텐츠 -->
-    <div class="content">
-      <!-- 인기 게임 섹션 -->
-      <section id="popular-game">
-        <div class="section-title">인기 게임</div>
-        <div class="game-list">
+    .genre-item:hover {
+      background-color: #e0e0e0;
+      cursor: pointer;
+    }
+  </style>
+</head>
 
-          <a href="./game/gogoonbuntu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
+<body>
+
+  <div class="message">
+    접속할 수 없습니다.
+  </div>
+  <!-- 상단바 -->
+  <header>
+    <!-- 네비게이션 메뉴 -->
+    <nav>
+      <a href="index.html">WeFlash</a>
+      <a href="#">게임</a>
+      <a href="genre.html">장르</a>
+      <a href="#">Q&A</a>
+    </nav>
+  </header>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="content">
+    <!-- 인기 게임 섹션 -->
+    <section id="popular-game">
+      <div class="section-title">인기 게임</div>
+      <div class="game-list">
+
+        <a href="./game/gogoonbuntu.html" class="game-item-container">
+          <div class="game-item" style="
                 background-image: url('/game/gameimage/gogoonbuntu.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a>
+              "></div>
+          <div class="game-name">고군분투</div>
+        </a>
 
-          <a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
+        <a href="./game/mandu.html" class="game-item-container">
+          <div class="game-item" style="
                 background-image: url('/game/gameimage/mandu.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고향만두</div>
-          </a>
-          <a href="./game/prison.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
+              "></div>
+          <div class="game-name">고향만두</div>
+        </a>
+        <a href="./game/prison.html" class="game-item-container">
+          <div class="game-item" style="
                 background-image: url('/game/gameimage/prison.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">감옥탈출</div>
-          </a>
-          <a href="./game/prison.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/prison.png');
+              "></div>
+          <div class="game-name">감옥탈출</div>
+        </a>
+        <a href="./game/prison_new.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/prisonremaster.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a><a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/mandu.png');
+              "></div>
+          <div class="game-name">감옥탈출 리마스터</div>
+        </a><a href="./game/bird.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/walkthestork.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a><a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/mandu.png');
+              "></div>
+          <div class="game-name">황새오래걷기</div>
+        </a><a href="./game/dadnme.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/dadnme.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a><a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/mandu.png');
+              "></div>
+          <div class="game-name">아빠와 나</div>
+        </a><a href="./game/sword.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/sword.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a><a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/mandu.png');
+              "></div>
+          <div class="game-name">검 강화하기</div>
+        </a><a href="./game/issac.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/isaac.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a><a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/mandu.png');
+              "></div>
+          <div class="game-name">아이작</div>
+        </a><a href="./game/war1.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/war.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a><a href="./game/mandu.html" class="game-item-container">
-            <div
-              class="game-item"
-              style="
-                background-image: url('/game/gameimage/mandu.png');
+              "></div>
+          <div class="game-name">전쟁시대1</div>
+        </a><a href="./game/shu.html" class="game-item-container">
+          <div class="game-item" style="
+                background-image: url('/game/gameimage/shuramen.png');
                 background-size: cover;
                 background-position: center;
-              "
-            ></div>
-            <div class="game-name">고군분투</div>
-          </a>
-        </div>
-      </section>
+              "></div>
+          <div class="game-name">슈의 라면가게</div>
+        </a>
+      </div>
+    </section>
 
-      <!-- 장르별 게임 찾기 섹션 -->
-      <section id="genre-game">
-        <div class="section-title">장르별 게임 찾기</div>
-        <div class="game-list">
-          <div class="genre-item">액션</div>
-          <div class="genre-item">퍼즐</div>
-          <div class="genre-item">스포츠</div>
-          <div class="genre-item">모험</div>
-          <div class="genre-item">슈팅</div>
-          <div class="genre-item">레이싱</div>
-        </div>
-      </section>
-    </div>
-  </body>
+    <!-- 장르별 게임 찾기 섹션 -->
+    <section id="genre-game">
+      <div class="section-title">장르별 게임 찾기</div>
+      <div class="game-list">
+        <div class="genre-item">액션</div>
+        <div class="genre-item">퍼즐</div>
+        <div class="genre-item">스포츠</div>
+        <div class="genre-item">모험</div>
+        <div class="genre-item">슈팅</div>
+        <div class="genre-item">레이싱</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    window.onload = function () {
+      if (window.innerWidth <= 768) { // 화면 너비가 768px 이하일 경우
+        window.location.href = "404.html"; // 404 페이지로 리다이렉트
+      }
+    }
+  </script>
+</body>
+
 </html>
