@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body {
+            text-align: center;
+            font-family: "Pretendard", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        .entry {
+            position: relative;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px auto;
+            padding: 15px;
+            width: 90%;
+            max-width: 600px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .entry h3 {
+            margin: 0 0 10px;
+        }
+
+        .entry p {
+            margin: 0;
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #f00;
+        }
+
+        .delete-icon:hover {
+            color: #d00;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>관리자 페이지</h1>
+    <div id="entries-container"></div>
+
+    <!-- Firebase Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script>
+        // Replace with your Firebase project's configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmqNS5JpDe9XSgdMXJI0ju626RaA7av-4",
+            authDomain: "weflash-0153.firebaseapp.com",
+            databaseURL: "https://weflash-0153-default-rtdb.firebaseio.com",
+            projectId: "weflash-0153",
+            storageBucket: "weflash-0153.firebasestorage.app",
+            messagingSenderId: "1089313427482",
+            appId: "1:1089313427482:web:0e75055ddfca55dd8341a3",
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        async function loadEntries() {
+            const entriesRef = database.ref("entries");
+            entriesRef.on("value", (snapshot) => {
+                const entries = snapshot.val();
+                const entriesContainer = document.getElementById("entries-container");
+                entriesContainer.innerHTML = ""; // Clear existing entries
+                if (entries) {
+                    // Sort entries by timestamp in descending order
+                    const sortedEntries = Object.entries(entries).sort(
+                        ([, a], [, b]) => b.timestamp - a.timestamp
+                    );
+
+                    sortedEntries.forEach(([id, entry]) => {
+                        const entryElement = document.createElement("div");
+                        entryElement.className = "entry";
+                        entryElement.innerHTML = `
+                            <span class="delete-icon" onclick="deleteEntry('${id}')">🗑️</span>
+                            <h3>${entry.name}</h3>
+                            <p>${entry.message}</p>
+                            <div id="comments-${id}">
+                                ${entry.comment ? `<strong>관리자:</strong> ${entry.comment}` : ""}
+                            </div>
+                            <textarea id="comment-input-${id}" placeholder="댓글을 입력하세요"></textarea>
+                            <button onclick="addComment('${id}')">댓글 작성</button>
+                        `;
+                        entriesContainer.appendChild(entryElement);
+                    });
+                }
+            });
+        }
+
+        async function addComment(entryId) {
+            const commentInput = document.getElementById(`comment-input-${entryId}`);
+            const commentText = commentInput.value.trim();
+
+            if (commentText) {
+                if (confirm("댓글을 등록하시겠습니까?")) {
+                    await database.ref(`entries/${entryId}`).update({ comment: commentText });
+                    commentInput.value = ""; // Clear the textarea
+                    console.log("Comment added to entry:", entryId);
+                }
+            } else {
+                alert("댓글 내용을 입력해주세요.");
+            }
+        }
+
+        async function deleteEntry(entryId) {
+            if (confirm("정말로 이 항목을 삭제하시겠습니까?")) {
+                await database.ref(`entries/${entryId}`).remove();
+                console.log("Entry deleted:", entryId);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadEntries);
+    </script>
+</body>
+
+</html>

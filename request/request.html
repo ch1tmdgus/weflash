@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게임 문의하기</title>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body {
+            text-align: center;
+            font-family: "Pretendard", sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f1f1f1;
+            color: black;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            /* nav를 중앙에 배치 */
+            align-items: center;
+            font-size: 18px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* 네비게이션 바 */
+        nav {
+            display: flex;
+            gap: 4 0px;
+            /* 메뉴 항목 간의 간격 */
+        }
+
+        nav a {
+            color: black;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        /* WeFlash 글자만 볼드체로 만들기 */
+        nav a:first-child {
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #dddddd;
+            border-radius: 30px;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .request {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .request label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .request input,
+        .request textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: "Pretendard", sans-serif;
+        }
+
+        .request textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .request button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .request button:hover {
+            background-color: #3d3d3d;
+        }
+
+        .entry-box {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px auto;
+            padding: 15px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .entry-box h3 {
+            margin: 0 0 10px;
+        }
+
+        .entry-box p {
+            margin: 5px 0;
+        }
+
+        .entry-box .admin-comment {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+
+        #entries {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<header>
+    <!-- 네비게이션 메뉴 -->
+    <nav>
+        <a href="/index.html">WeFlash</a>
+        <a href="#">게임</a>
+        <a href="genre.html">장르</a>
+        <a href="/request/request.html">게임 요청</a>
+    </nav>
+</header>
+
+<body>
+    <h1>원하는 게임을 입력해주세요</h1>
+
+    <div class="request">
+        <label for="name">닉네임</label>
+        <input type="text" id="name" placeholder="닉네임을 입력하세요" />
+
+        <label for="message">메시지</label>
+        <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
+
+        <button onclick="addEntry()">입력</button>
+    </div>
+    <h2>문의 내역</h2>
+
+    <div id="entries"></div>
+
+
+    <!-- Firebase Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script>
+        // Replace with your Firebase project's configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmqNS5JpDe9XSgdMXJI0ju626RaA7av-4",
+            authDomain: "weflash-0153.firebaseapp.com",
+            databaseURL: "https://weflash-0153-default-rtdb.firebaseio.com",
+            projectId: "weflash-0153",
+            storageBucket: "weflash-0153.firebasestorage.app",
+            messagingSenderId: "1089313427482",
+            appId: "1:1089313427482:web:0e75055ddfca55dd8341a3",
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        async function loadEntries() {
+            const entriesRef = database.ref("entries");
+            entriesRef.on("value", (snapshot) => {
+                const entries = snapshot.val();
+                const entriesContainer = document.getElementById("entries");
+                entriesContainer.innerHTML = "";
+
+                if (entries) {
+                    // 데이터를 배열로 변환하고 timestamp 기준으로 내림차순 정렬
+                    const sortedEntries = Object.entries(entries).sort(
+                        ([, a], [, b]) => b.timestamp - a.timestamp
+                    );
+
+                    sortedEntries.forEach(([id, entry]) => {
+                        const entryElement = document.createElement("div");
+                        entryElement.className = "entry-box";
+                        entryElement.innerHTML = `
+                        <h3>${entry.name}</h3>
+                        <p>${entry.message}</p>
+                        <div id="admin-comment-${id}" class="admin-comment">
+                            ${entry.comment
+                                ? `<strong>관리자:</strong> ${entry.comment}`
+                                : "관리자의 댓글을 기다리고 있습니다"
+                            }
+                        </div>
+                    `;
+                        entriesContainer.appendChild(entryElement);
+                    });
+                }
+            });
+        }
+
+        async function addEntry() {
+            const name = document.getElementById("name").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (name && message) {
+                const entry = { name, message, timestamp: Date.now() };
+                const newEntryRef = database.ref("entries").push();
+                await newEntryRef.set(entry);
+
+                document.getElementById("name").value = "";
+                document.getElementById("message").value = "";
+                alert("문의가 등록되었습니다.");
+            } else {
+                alert("닉네임과 메시지를 모두 입력해주세요.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadEntries);
+    </script>
+</body>
+
+</html>
