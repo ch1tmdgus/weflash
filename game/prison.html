@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeFlash - 한게임 플래시 고군분투</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css" />
+  <style>
+    body {
+      font-family: "Pretendard", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #f1f1f1;
+      color: black;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      /* nav를 중앙에 배치 */
+      align-items: center;
+      font-size: 18px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    /* 네비게이션 바 */
+    nav {
+      display: flex;
+      gap: 4 0px;
+      /* 메뉴 항목 간의 간격 */
+    }
+
+    nav a {
+      color: black;
+      text-decoration: none;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    /* WeFlash 글자만 볼드체로 만들기 */
+    nav a:first-child {
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: #dddddd;
+      border-radius: 30px;
+    }
+
+    .search-icon {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    main {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .game-container {
+      background-color: #d9d9d9;
+      width: 100%;
+      height: 500px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      overflow: hidden;
+    }
+
+    .favorite-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .favorite-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .section-content {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="/index.html">WeFlash</a>
+      <a href="#">홈</a>
+      <a href="#">장르</a>
+      <a href="#">Q&A</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="title">감옥탈출</div>
+
+    <!-- 플래시 게임 실행 -->
+    <div class="game-container">
+      <div id="flash-player" style="width: 100%; height: 100%"></div>
+    </div>
+
+    <div class="favorite-button">즐겨찾기</div>
+
+    <div class="section">
+      <div class="section-title">게임 설명</div>
+      <div class="section-content">
+        감옥탈출 게임하기는 마우스를 이용한 장애물 피하기 1인용 플래시게임 입니다. 이 게임은 사용자가 마우스를 컨트롤하여 캐릭터를 움직이는 방식으로 진행됩니다. 사용자의 컨트롤이 매우 중요하기 때문에 정확한
+        조작이 필요합니다. 게임에서는 용감한 범죄자를 도와 함정들을 피해야 합니다. 캐릭터는 마우스 커서를 따라 이동하므로, 장애물을 피하기 위해서는 뛰어난 스킬이 필요합니다. 다양한 스테이지를 클리어하기
+        위해 반복적인 도전을 하고, 안전한 길을 찾아 탈출에 성공하세요. 감옥탈출 게임은 높은 스킬을 요구하는만큼, 사용자는 많은 시간을 투자하여 플레이를 즐길 수 있습니다.
+
+
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">게임 조작</div>
+      <div class="section-content">
+        조작 방법: 이동(마우스 커서)
+      </div>
+    </div>
+  </main>
+  <div id="game"></div>
+
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Ruffle 플레이어 생성
+      let ruffle = window.RufflePlayer.newest();
+      let player = ruffle.createPlayer();
+      let container = document.getElementById("flash-player");
+
+      // 플레이어 스타일 적용
+      player.style.width = "100%";
+      player.style.height = "100%";
+
+      // Ruffle 플레이어 추가 및 SWF 파일 로드
+      container.appendChild(player);
+      player.load("gamefile/prison_org.swf");
+    });
+  </script>
+</body>
+
+</html>

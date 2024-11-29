@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeFlash</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css" />
+  <style>
+    body {
+      font-family: "Pretendard", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #f1f1f1;
+      color: black;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      /* nav를 중앙에 배치 */
+      align-items: center;
+      font-size: 18px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    /* 네비게이션 바 */
+    nav {
+      display: flex;
+      gap: 4 0px;
+      /* 메뉴 항목 간의 간격 */
+    }
+
+    nav a {
+      color: black;
+      text-decoration: none;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    /* WeFlash 글자만 볼드체로 만들기 */
+    nav a:first-child {
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: #dddddd;
+      border-radius: 30px;
+    }
+
+    .search-icon {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    main {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .game-container {
+      background-color: #d9d9d9;
+      width: 100%;
+      height: 500px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      overflow: hidden;
+    }
+
+    .favorite-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .favorite-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .section-content {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="/index.html">WeFlash</a>
+      <a href="/index.html">홈</a>
+      <a href="#">장르</a>
+      <a href="#">Q&A</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="title">검 키우기</div>
+
+    <!-- 플래시 게임 실행 -->
+    <div class="game-container">
+      <div id="flash-player" style="width: 100%; height: 100%"></div>
+    </div>
+
+    <div class="favorite-button">즐겨찾기</div>
+
+    <div class="section">
+      <div class="section-title">게임 설명</div>
+      <div class="section-content">
+        플레이가 시작되면 소량의 돈이 주어지고 돈을 가지고 검을 강화하며 비싼값에 판매하여 이익을 남기기도 하면서 마지막 검까지 강화는 하는 것을 목적으로 합니다. 검 강화하기의 난이도는 이지모드와 하드모드로
+        선택할 수 있는데 하드모드는 강화비용이 높고 확률도 낮기 때문에 높은강화로가기가 어렵습니다. 기능에 익숙해지기 전까지는 이지모드를 선택하여 기능을 익혀 보세요.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">게임 조작</div>
+      <div class="section-content">
+        조작 방법: 게임 내 마우스와 상호작용
+
+      </div>
+  </main>
+  <div id="game"></div>
+
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Ruffle 플레이어 생성
+      let ruffle = window.RufflePlayer.newest();
+      let player = ruffle.createPlayer();
+      let container = document.getElementById("flash-player");
+
+      // 플레이어 스타일 적용
+      player.style.width = "100%";
+      player.style.height = "100%";
+
+      // Ruffle 플레이어 추가 및 SWF 파일 로드
+      container.appendChild(player);
+      player.load("./gamefile/sword.swf");
+    });
+  </script>
+</body>
+
+</html>
