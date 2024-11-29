@@ -156,7 +156,7 @@
       <a href="index.html">WeFlash</a>
       <a href="#">게임</a>
       <a href="genre.html">장르</a>
-      <a href="#">Q&A</a>
+      <a href="./request/request.html">게임 요청</a>
     </nav>
   </header>
 
@@ -259,12 +259,29 @@
     </section>
   </div>
 
+  <admin>
+    <a href="#" id="admin-page-link">관리자 페이지</a>
+  </admin>
+
   <script>
+    // 관리자 페이지 링크 클릭 이벤트
+    document.getElementById("admin-page-link").addEventListener("click", function (e) {
+      e.preventDefault(); // 기본 링크 동작 방지
+      const password = prompt("비밀번호를 입력하세요:");
+      if (password === "0153") {
+        window.location.href = "/request/admin.html"; // 비밀번호가 맞으면 이동
+      } else {
+        alert("비밀번호가 올바르지 않습니다."); // 틀리면 경고창
+      }
+    });
+
+    
     window.onload = function () {
       if (window.innerWidth <= 768) { // 화면 너비가 768px 이하일 경우
         window.location.href = "404.html"; // 404 페이지로 리다이렉트
       }
     }
+
   </script>
 </body>
 
