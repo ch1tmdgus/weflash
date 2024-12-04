@@ -72,86 +72,136 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        /* 비밀번호 입력 스타일 */
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .password-container input {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .password-container button {
+            background-color: #28a745;
+        }
+
+        .password-container button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 
 <body>
-    <h1>관리자 페이지</h1>
-    <div id="entries-container"></div>
+    <div id="password-container" class="password-container">
+        <h2>관리자 비밀번호 입력</h2>
+        <input type="password" id="password" placeholder="비밀번호를 입력하세요" />
+        <button onclick="checkPassword()">확인</button>
+    </div>
 
-    <!-- Firebase Configuration -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <div id="admin-container" style="display: none;">
+        <h1>관리자 페이지</h1>
+        <div id="entries-container"></div>
+
+        <!-- Firebase Configuration -->
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+        <script>
+            // Firebase 설정
+            const firebaseConfig = {
+                apiKey: "AIzaSyAmqNS5JpDe9XSgdMXJI0ju626RaA7av-4",
+                authDomain: "weflash-0153.firebaseapp.com",
+                databaseURL: "https://weflash-0153-default-rtdb.firebaseio.com",
+                projectId: "weflash-0153",
+                storageBucket: "weflash-0153.firebasestorage.app",
+                messagingSenderId: "1089313427482",
+                appId: "1:1089313427482:web:0e75055ddfca55dd8341a3",
+            };
+
+            // Firebase 초기화
+            const app = firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+
+            async function loadEntries() {
+                const entriesRef = database.ref("entries");
+                entriesRef.on("value", (snapshot) => {
+                    const entries = snapshot.val();
+                    const entriesContainer = document.getElementById("entries-container");
+                    entriesContainer.innerHTML = ""; // 기존 항목 비우기
+                    if (entries) {
+                        // 항목을 타임스탬프 기준으로 내림차순 정렬
+                        const sortedEntries = Object.entries(entries).sort(
+                            ([, a], [, b]) => b.timestamp - a.timestamp
+                        );
+
+                        sortedEntries.forEach(([id, entry]) => {
+                            const entryElement = document.createElement("div");
+                            entryElement.className = "entry";
+                            entryElement.innerHTML = `
+                                <span class="delete-icon" onclick="deleteEntry('${id}')">🗑️</span>
+                                <h3>${entry.name}</h3>
+                                <p>${entry.message}</p>
+                                <div id="comments-${id}">
+                                    ${entry.comment ? `<strong>관리자:</strong> ${entry.comment}` : ""}
+                                </div>
+                                <textarea id="comment-input-${id}" placeholder="댓글을 입력하세요"></textarea>
+                                <button onclick="addComment('${id}')">댓글 작성</button>
+                            `;
+                            entriesContainer.appendChild(entryElement);
+                        });
+                    }
+                });
+            }
+
+            async function addComment(entryId) {
+                const commentInput = document.getElementById(`comment-input-${entryId}`);
+                const commentText = commentInput.value.trim();
+
+                if (commentText) {
+                    if (confirm("댓글을 등록하시겠습니까?")) {
+                        await database.ref(`entries/${entryId}`).update({ comment: commentText });
+                        commentInput.value = ""; // 텍스트 영역 비우기
+                        console.log("Comment added to entry:", entryId);
+                    }
+                } else {
+                    alert("댓글 내용을 입력해주세요.");
+                }
+            }
+
+            async function deleteEntry(entryId) {
+                if (confirm("정말로 이 항목을 삭제하시겠습니까?")) {
+                    await database.ref(`entries/${entryId}`).remove();
+                    console.log("Entry deleted:", entryId);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", loadEntries);
+        </script>
+    </div>
+
     <script>
-        // Replace with your Firebase project's configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAmqNS5JpDe9XSgdMXJI0ju626RaA7av-4",
-            authDomain: "weflash-0153.firebaseapp.com",
-            databaseURL: "https://weflash-0153-default-rtdb.firebaseio.com",
-            projectId: "weflash-0153",
-            storageBucket: "weflash-0153.firebasestorage.app",
-            messagingSenderId: "1089313427482",
-            appId: "1:1089313427482:web:0e75055ddfca55dd8341a3",
-        };
+        // 비밀번호 확인 함수
+        function checkPassword() {
+            const enteredPassword = document.getElementById("password").value;
+            const correctPassword = "0153";
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        async function loadEntries() {
-            const entriesRef = database.ref("entries");
-            entriesRef.on("value", (snapshot) => {
-                const entries = snapshot.val();
-                const entriesContainer = document.getElementById("entries-container");
-                entriesContainer.innerHTML = ""; // Clear existing entries
-                if (entries) {
-                    // Sort entries by timestamp in descending order
-                    const sortedEntries = Object.entries(entries).sort(
-                        ([, a], [, b]) => b.timestamp - a.timestamp
-                    );
-
-                    sortedEntries.forEach(([id, entry]) => {
-                        const entryElement = document.createElement("div");
-                        entryElement.className = "entry";
-                        entryElement.innerHTML = `
-                            <span class="delete-icon" onclick="deleteEntry('${id}')">🗑️</span>
-                            <h3>${entry.name}</h3>
-                            <p>${entry.message}</p>
-                            <div id="comments-${id}">
-                                ${entry.comment ? `<strong>관리자:</strong> ${entry.comment}` : ""}
-                            </div>
-                            <textarea id="comment-input-${id}" placeholder="댓글을 입력하세요"></textarea>
-                            <button onclick="addComment('${id}')">댓글 작성</button>
-                        `;
-                        entriesContainer.appendChild(entryElement);
-                    });
-                }
-            });
-        }
-
-        async function addComment(entryId) {
-            const commentInput = document.getElementById(`comment-input-${entryId}`);
-            const commentText = commentInput.value.trim();
-
-            if (commentText) {
-                if (confirm("댓글을 등록하시겠습니까?")) {
-                    await database.ref(`entries/${entryId}`).update({ comment: commentText });
-                    commentInput.value = ""; // Clear the textarea
-                    console.log("Comment added to entry:", entryId);
-                }
+            if (enteredPassword === correctPassword) {
+                // 비밀번호가 맞으면 관리자 페이지 표시
+                document.getElementById("password-container").style.display = "none";
+                document.getElementById("admin-container").style.display = "block";
             } else {
-                alert("댓글 내용을 입력해주세요.");
+                alert("비밀번호가 틀렸습니다.");
             }
         }
-
-        async function deleteEntry(entryId) {
-            if (confirm("정말로 이 항목을 삭제하시겠습니까?")) {
-                await database.ref(`entries/${entryId}`).remove();
-                console.log("Entry deleted:", entryId);
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", loadEntries);
     </script>
 </body>
 
