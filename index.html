@@ -8,6 +8,7 @@
   <!-- Pretendard 폰트 CDN 로드 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.0.4/dist/web/static/pretendard.css" />
   <link rel="icon" href="favicon.png">
+
   <style>
     body {
       font-family: "Pretendard", sans-serif;
@@ -61,7 +62,7 @@
 
     /* 메인 콘텐츠 */
     .content {
-      margin-top: 80px;
+      margin-top: 10px;
       /* 상단바 아래 여백 추가 */
       padding: 20px;
     }
@@ -142,6 +143,11 @@
       background-color: #e0e0e0;
       cursor: pointer;
     }
+
+    img {
+      margin-top: 50px;
+      margin-left: 20px;
+    }
   </style>
 </head>
 
@@ -161,6 +167,8 @@
 
     </nav>
   </header>
+
+  <img src="logo.png" alt="Logo">
 
   <!-- 메인 콘텐츠 -->
   <div class="content">
@@ -263,7 +271,7 @@
 
   <script>
 
-    
+
     window.onload = function () {
       if (window.innerWidth <= 768) { // 화면 너비가 768px 이하일 경우
         window.location.href = "404.html"; // 404 페이지로 리다이렉트
